@@ -36,3 +36,36 @@ class Producto(models.Model):
       codigo_producto = str(self.id).zfill(6)
 
       return f'{codigo_categoria}-{codigo_producto}'
+
+class Pedido(models.Model):
+    #Relaciones
+    ubicacion = models.ForeignKey('Localizacion', on_delete=models.SET_NULL, null=True)
+    
+    #Atributos
+    fechaCreacion = models.DateField()
+    estado = models.TextField()
+    fechaEntrega = models.DateField()
+    direccionEntrega = models.TextField()
+    tarifa = models.FloatField(default=0)
+
+    def calcular_tarifa(self):
+        return self.tarifa
+
+    def listar_pedidos_estado(self):
+        return self.estado
+
+    def asignar_repartidor(self):
+        return self.repartidor
+
+    
+class DetallePedido(models.Model):
+    #Relaciones
+    producto = models.ForeignKey('Producto', on_delete=models.SET_NULL, null=True)
+    pedido = models.ForeignKey('Pedido', on_delete=models.SET_NULL, null=True)
+
+    #Atributos
+    cantidad = models.IntegerField()
+    subtotal = models.FloatField()
+
+    def calcular_subtotal(self):
+        return self.subtotal
