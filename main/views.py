@@ -9,7 +9,6 @@ from .models import *
 
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
-from .models import Producto
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -80,5 +79,14 @@ class RegistrationView(FormView):
       login(self.request, user)
 
       return super().form_valid(form)
+
+def gracias(request):
+    return HttpResponse("Gracias por todo")
+
+class ProductListView(ListView):
+    model = Producto
+
+class ProductDetailView(DetailView):
+    model = Producto
 
       
