@@ -12,6 +12,9 @@ class Categoria(models.Model):
     codigo = models.CharField(max_length=4)
     nombre = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Localizacion(models.Model):
     distrito = models.CharField(max_length=20)
